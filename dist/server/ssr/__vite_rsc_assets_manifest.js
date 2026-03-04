@@ -1,51 +1,75 @@
 export default {
-  "bootstrapScriptContent": "import(\"/assets/index-C5e3oFq4.js\")",
+  "bootstrapScriptContent": "import(\"/assets/index-DKWkJGv0.js\")",
   "clientReferenceDeps": {
+    "d149ae9643a0": {
+      "js": [
+        "/assets/worker-entry-BlAyvNEg.js",
+        "/assets/framework-c-slHith.js",
+        "/assets/index-DKWkJGv0.js"
+      ],
+      "css": []
+    },
     "d6422401ef32": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
+      ],
+      "css": []
+    },
+    "eccf7c8dc7d4": {
+      "js": [
+        "/assets/worker-entry-BlAyvNEg.js",
+        "/assets/framework-c-slHith.js",
+        "/assets/index-DKWkJGv0.js"
+      ],
+      "css": []
+    },
+    "3e58ca9e5ef5": {
+      "js": [
+        "/assets/worker-entry-BlAyvNEg.js",
+        "/assets/framework-c-slHith.js",
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     },
     "6451b87f0574": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     },
     "a9bbde40cf2d": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     },
     "f29e6e234fea": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     },
     "0deffcb8ffd7": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     },
     "c2747888630f": {
       "js": [
-        "/assets/facade__virtual_vinext-rsc-entry-DyNbhKLp.js",
+        "/assets/worker-entry-BlAyvNEg.js",
         "/assets/framework-c-slHith.js",
-        "/assets/index-C5e3oFq4.js"
+        "/assets/index-DKWkJGv0.js"
       ],
       "css": []
     }
@@ -54,7 +78,7 @@ export default {
     "app/layout.tsx": {
       "js": [],
       "css": [
-        "/assets/index-L9eoclXu.css"
+        "/assets/index-6AGTJl1a.css"
       ]
     }
   }

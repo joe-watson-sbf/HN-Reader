@@ -6,8 +6,6 @@ export const metadata: Metadata = {
   title: "Bookmarks — HN Reader",
 };
 
-export const dynamic = "force-dynamic";
-
 export default function BookmarksPage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
