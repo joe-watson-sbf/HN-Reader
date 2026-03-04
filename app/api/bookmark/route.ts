@@ -1,37 +1,42 @@
-import { NextRequest } from "next/server";
-
-function parseIds(request: NextRequest): number[] {
-  try {
-    const cookie = request.cookies.get("bookmarks");
-    const ids = cookie ? JSON.parse(cookie.value) : [];
-    return Array.isArray(ids) ? ids : [];
-  } catch {
-    return [];
-  }
-}
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const { id } = await request.json();
 
   if (!id || typeof id !== "number") {
-    return Response.json({ error: "Invalid id" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
 
-  const ids = parseIds(request);
-  const isBookmarked = ids.includes(id);
-  const newIds = isBookmarked ? ids.filter((i) => i !== id) : [...ids, id];
+  // Use cookies() from next/headers — the same API as server components.
+  // More reliable than request.cookies which can miss recently-set values.
+  const cookieStore = await cookies();
+  const existing = cookieStore.get("bookmarks");
 
-  const response = Response.json({
+  let currentIds: number[] = [];
+  try {
+    currentIds = existing ? JSON.parse(existing.value) : [];
+    if (!Array.isArray(currentIds)) currentIds = [];
+  } catch {
+    currentIds = [];
+  }
+
+  const isBookmarked = currentIds.includes(id);
+  const newIds = isBookmarked
+    ? currentIds.filter((i) => i !== id)
+    : [...currentIds, id];
+
+  const response = NextResponse.json({
     bookmarked: !isBookmarked,
     count: newIds.length,
   });
 
-  // Persist to cookie — works on Next.js, vinext dev, and Cloudflare Workers
-  // Session cookie — expires when the browser tab/window closes
-  response.headers.set(
-    "Set-Cookie",
-    `bookmarks=${JSON.stringify(newIds)}; Path=/; SameSite=Lax`
-  );
+  // Use NextResponse.cookies.set — the proper Next.js API for setting cookies
+  response.cookies.set("bookmarks", JSON.stringify(newIds), {
+    path: "/",
+    sameSite: "lax",
+    // session cookie — no maxAge/expires
+  });
 
   return response;
 }

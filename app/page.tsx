@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { getTopStories, getNewStories, getAskStories, getItems } from "./lib/hn";
-import { getBookmarkedIds } from "./lib/store";
 import Nav from "./components/Nav";
 import StoryCard from "./components/StoryCard";
 import SearchBar from "./components/SearchBar";
@@ -26,7 +25,6 @@ export default async function HomePage({
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <Nav />
       <main className="max-w-3xl mx-auto px-4 py-8">
-        {/* SearchBar is a client component — must be in Suspense because it reads URL state */}
         <Suspense
           fallback={
             <div className="h-24 bg-zinc-900 rounded-xl animate-pulse mb-6" />
@@ -35,7 +33,6 @@ export default async function HomePage({
           <SearchBar currentTab={tab} currentQuery={q} />
         </Suspense>
 
-        {/* Stories stream in — key forces re-mount when tab/query changes */}
         <Suspense key={`${tab}-${q}`} fallback={<StoriesSkeleton />}>
           <StoryFeed tab={tab} query={q} />
         </Suspense>
@@ -44,7 +41,13 @@ export default async function HomePage({
   );
 }
 
-async function StoryFeed({ tab, query }: { tab: string; query: string }) {
+async function StoryFeed({
+  tab,
+  query,
+}: {
+  tab: string;
+  query: string;
+}) {
   const ids =
     tab === "new"
       ? await getNewStories(30)
@@ -60,8 +63,6 @@ async function StoryFeed({ tab, query }: { tab: string; query: string }) {
       )
     : stories;
 
-  const bookmarkedIds = await getBookmarkedIds();
-
   if (!filtered.length) {
     return (
       <div className="text-center py-16 text-zinc-500">
@@ -73,12 +74,7 @@ async function StoryFeed({ tab, query }: { tab: string; query: string }) {
   return (
     <div className="space-y-3">
       {filtered.map((story, i) => (
-        <StoryCard
-          key={story.id}
-          story={story}
-          rank={i + 1}
-          isBookmarked={bookmarkedIds.has(story.id)}
-        />
+        <StoryCard key={story.id} story={story} rank={i + 1} />
       ))}
       <p className="text-center text-xs text-zinc-600 pt-4">
         {filtered.length} stories · revalidates every 60s · rendered by vinext

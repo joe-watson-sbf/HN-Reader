@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { getBookmarkCount } from "../lib/store";
+"use client";
 
-export default async function Nav() {
-  const bookmarkCount = await getBookmarkCount();
+import Link from "next/link";
+import { useBookmarks } from "./BookmarkContext";
+
+export default function Nav() {
+  const { count } = useBookmarks();
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-sm">
@@ -49,9 +51,9 @@ export default async function Nav() {
                 d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
               />
             </svg>
-            {bookmarkCount > 0 && (
+            {count > 0 && (
               <span className="text-xs bg-orange-500 text-white rounded-full w-4 h-4 flex items-center justify-center font-medium">
-                {bookmarkCount}
+                {count}
               </span>
             )}
           </Link>

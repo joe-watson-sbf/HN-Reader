@@ -1,49 +1,24 @@
 "use client";
 
-import { useOptimistic, useTransition } from "react";
+import { useBookmarks } from "./BookmarkContext";
 
-export default function BookmarkButton({
-  id,
-  title,
-  url,
-  initialBookmarked,
-}: {
-  id: number;
-  title: string;
-  url?: string;
-  initialBookmarked: boolean;
-}) {
-  const [isPending, startTransition] = useTransition();
-  const [optimistic, setOptimistic] = useOptimistic(initialBookmarked);
-
-  const handleToggle = () => {
-    startTransition(async () => {
-      // Optimistic update — icon flips instantly, no page refresh
-      setOptimistic(!optimistic);
-
-      // Plain fetch to a route handler — does NOT trigger Next.js router refresh
-      await fetch("/api/bookmark", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title, url }),
-      });
-    });
-  };
+export default function BookmarkButton({ id }: { id: number }) {
+  const { isBookmarked, toggle } = useBookmarks();
+  const bookmarked = isBookmarked(id);
 
   return (
     <button
-      onClick={handleToggle}
-      disabled={isPending}
-      aria-label={optimistic ? "Remove bookmark" : "Bookmark this story"}
+      onClick={() => toggle(id)}
+      aria-label={bookmarked ? "Remove bookmark" : "Bookmark this story"}
       className={`shrink-0 p-1.5 rounded-lg transition-all ${
-        optimistic
+        bookmarked
           ? "text-orange-400 bg-orange-500/10 hover:bg-orange-500/20"
           : "text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800"
       }`}
     >
       <svg
         className="w-4 h-4"
-        fill={optimistic ? "currentColor" : "none"}
+        fill={bookmarked ? "currentColor" : "none"}
         stroke="currentColor"
         viewBox="0 0 24 24"
         strokeWidth={2}

@@ -6,11 +6,9 @@ import BookmarkButton from "./BookmarkButton";
 export default function StoryCard({
   story,
   rank,
-  isBookmarked = false,
 }: {
   story: HNItem;
   rank?: number;
-  isBookmarked?: boolean;
 }) {
   const host = domain(story.url);
 
@@ -48,12 +46,7 @@ export default function StoryCard({
                 </span>
               )}
             </div>
-            <BookmarkButton
-              id={story.id}
-              title={story.title ?? ""}
-              url={story.url}
-              initialBookmarked={isBookmarked}
-            />
+            <BookmarkButton id={story.id} />
           </div>
 
           <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-xs text-zinc-500">

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getItem, getTopStories, timeAgo, domain } from "../../lib/hn";
-import { getBookmarkedIds } from "../../lib/store";
 import CommentTree from "../../components/CommentTree";
 import BookmarkButton from "../../components/BookmarkButton";
 import Nav from "../../components/Nav";
@@ -44,8 +43,6 @@ export default async function StoryPage({
   }
 
   const host = domain(story.url);
-  const bookmarkedIds = await getBookmarkedIds();
-  const isBookmarked = bookmarkedIds.has(story.id);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -89,12 +86,7 @@ export default async function StoryPage({
                 </a>
               )}
             </div>
-            <BookmarkButton
-              id={story.id}
-              title={story.title ?? ""}
-              url={story.url}
-              initialBookmarked={isBookmarked}
-            />
+            <BookmarkButton id={story.id} />
           </div>
 
           <div className="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-zinc-500">
