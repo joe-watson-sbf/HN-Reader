@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getItem, getTopStories, timeAgo, domain } from "../../lib/hn";
-import { store } from "../../lib/store";
+import { getBookmarkedIds } from "../../lib/store";
 import CommentTree from "../../components/CommentTree";
 import BookmarkButton from "../../components/BookmarkButton";
 import Nav from "../../components/Nav";
@@ -44,7 +44,8 @@ export default async function StoryPage({
   }
 
   const host = domain(story.url);
-  const isBookmarked = store.has(story.id);
+  const bookmarkedIds = await getBookmarkedIds();
+  const isBookmarked = bookmarkedIds.has(story.id);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">

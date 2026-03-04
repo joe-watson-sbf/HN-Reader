@@ -1,38 +1,21 @@
-// In-memory bookmark store — demo only. Use a DB (D1, Postgres) in production.
-// On Cloudflare Workers, swap this for KV: import { env } from "cloudflare:workers"
+// Cookie-based bookmark store — works on local dev (Next.js/vinext) and Cloudflare Workers.
+// Stores an array of bookmarked IDs in the "bookmarks" cookie.
 
-export type BookmarkEntry = {
-  id: number;
-  title: string;
-  url?: string;
-  savedAt: number;
-};
+import { cookies } from "next/headers";
 
-const bookmarks = new Map<number, BookmarkEntry>();
+export async function getBookmarkedIds(): Promise<Set<number>> {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("bookmarks");
+  if (!cookie?.value) return new Set();
+  try {
+    const ids = JSON.parse(cookie.value);
+    return new Set(Array.isArray(ids) ? ids : []);
+  } catch {
+    return new Set();
+  }
+}
 
-export const store = {
-  toggle(data: { id: number; title: string; url?: string }): boolean {
-    if (bookmarks.has(data.id)) {
-      bookmarks.delete(data.id);
-      return false;
-    }
-    bookmarks.set(data.id, { ...data, savedAt: Date.now() });
-    return true;
-  },
-
-  has(id: number): boolean {
-    return bookmarks.has(id);
-  },
-
-  getAll(): BookmarkEntry[] {
-    return Array.from(bookmarks.values()).sort((a, b) => b.savedAt - a.savedAt);
-  },
-
-  ids(): Set<number> {
-    return new Set(bookmarks.keys());
-  },
-
-  count(): number {
-    return bookmarks.size;
-  },
-};
+export async function getBookmarkCount(): Promise<number> {
+  const ids = await getBookmarkedIds();
+  return ids.size;
+}

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { store } from "../lib/store";
+import { getBookmarkCount } from "../lib/store";
 
-export default function Nav() {
-  const bookmarkCount = store.count();
+export default async function Nav() {
+  const bookmarkCount = await getBookmarkCount();
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-sm">

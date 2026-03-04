@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { getTopStories, getNewStories, getAskStories, getItems } from "./lib/hn";
-import { store } from "./lib/store";
+import { getBookmarkedIds } from "./lib/store";
 import Nav from "./components/Nav";
 import StoryCard from "./components/StoryCard";
 import SearchBar from "./components/SearchBar";
@@ -60,7 +60,7 @@ async function StoryFeed({ tab, query }: { tab: string; query: string }) {
       )
     : stories;
 
-  const bookmarkedIds = store.ids();
+  const bookmarkedIds = await getBookmarkedIds();
 
   if (!filtered.length) {
     return (
