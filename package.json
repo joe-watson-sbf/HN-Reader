@@ -10,12 +10,11 @@
   "homepage": "https://github.com/joe-watson-sbf/HN-Reader#readme",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
     "lint": "eslint",
-    "dev:vinext": "vite dev --port 3001",
-    "build:vinext": "vite build"
+    "vinext": "vite dev",
+    "build": "vite build",
+    "start": "vite preview",
+    "deploy": "vinext deploy"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -24,6 +23,7 @@
     "vinext": "^0.0.19"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.26.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^25",
     "@types/react": "^19",
@@ -34,7 +34,8 @@
     "react-server-dom-webpack": "^19.2.4",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "wrangler": "^4.70.0"
   },
   "type": "module"
 }

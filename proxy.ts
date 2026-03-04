@@ -13,6 +13,8 @@ export function proxy(_request: NextRequest) {
   return response;
 }
 
+export default proxy;
+
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
