@@ -56,5 +56,5 @@ dist
 /dist
 worker
 /worker
-wrangler.jsonc
-/wrangler.jsonc
+wrangler.*
+/wrangler.*
