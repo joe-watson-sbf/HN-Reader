@@ -43,8 +43,18 @@ next-env.d.ts
 
 .claude
 .agent
+/.agent
 .agents
+/.agents
 .wrangler
+/.wrangler
+agent
+/agent
+agents
+/agents
 dist
+/dist
 worker
+/worker
 wrangler.jsonc
+/wrangler.jsonc
