@@ -41,6 +41,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Custom ignores
+worker/
+wrangler.jsonc
+.agents/
+.agent/
+.claude/
+dist/
+
 .claude
 .agent
 /.agent
