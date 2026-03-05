@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://hn-reader-joe-watson.vercel.app/sitemap.xml
